@@ -1,0 +1,6 @@
+.idea
+node_modules
+target
+.tscache
+npm-debug.log
+tscommand-*.tmp.txt
