@@ -7,9 +7,13 @@ npm i
 ```
 
 # Running unit-tests #
+Run test without coverage reporting
 ```
-cd <repo-root>
 npm run test
+```
+Run test with coverage reporting
+```
+npm run test:c
 ```
 
 # Transpiling #
@@ -33,8 +37,8 @@ npm run cli -- \
 for example
 ```
 npm run cli -- \
-    --input-file=./cli/sample-file/01.dat
-    --input-format=pipe
+    --input-file=./sample-files/01.dat \
+    --input-format=pipe \
     --output-sort=gender
 ```
 

@@ -4,3 +4,4 @@ target
 .tscache
 npm-debug.log
 tscommand-*.tmp.txt
+.nyc_output
