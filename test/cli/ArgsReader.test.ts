@@ -3,6 +3,7 @@ import * as sinon from 'sinon';
 import ArgsReader from '../../src/cli/ArgsReader';
 import loggerMock from '../mock/logger';
 import commandLineArgs = require("command-line-args");
+import {KeyStringValueString} from "../../src/util/Types";
 
 describe('Test ArgsReader', () => {
 
@@ -10,7 +11,7 @@ describe('Test ArgsReader', () => {
     let allArguments = ['input-file', 'input-format', 'output-sort'];
 
     // list of arguments with specific possible values
-    let enumArguments = {
+    let enumArguments: {[key: string]: Array<string>} = {
         'input-format': ['pipe', 'comma', 'space'],
         'output-sort': ['gender', 'birthday', 'name']
     };
@@ -21,7 +22,7 @@ describe('Test ArgsReader', () => {
             res[val] = val;
             return res;
         },
-        {}
+        <KeyStringValueString>{}
     );
 
     // Test mandatory parameter throws exception if missing
@@ -29,7 +30,7 @@ describe('Test ArgsReader', () => {
 
         // Actual test
         it(`Test mandatory parameter throws exception if missing: --${allArguments[i]}`, () => {
-            let parsedArguments = {};
+            let parsedArguments: KeyStringValueString = {};
             for (let j = 0; j < allArguments.length; j++) {
                 if (i === j) {
                     // skip argument
@@ -39,31 +40,18 @@ describe('Test ArgsReader', () => {
             }
             let commandLineArgsMock = sinon.stub().returns(parsedArguments);
             let argsReader = new ArgsReader(loggerMock, commandLineArgsMock);
-            try {
-                // should throw exception
-                argsReader.read();
-            } catch (e) {
-                // failure if error message mismatch
-                chai.assert.equal(e.message, `Parameter is mandatory: --${allArguments[i]}`);
-                return;
-            }
-            // failure if there was no exception
-            chai.assert.fail(
-                null,
-                null,
-                `Mandatory parameter is missing, but no exception is thrown: --${allArguments[i]}`
-            );
+            chai.expect(argsReader.read.bind(argsReader)).throw(`Parameter is mandatory: --${allArguments[i]}`);
         });
     }
 
     // Test valid parameter value passes, invalid throws exception
-    let enumArgumentNames = Object.keys(enumArguments);
+    let enumArgumentNames: Array<string> = Object.keys(enumArguments);
     for (let i = 0; i < enumArgumentNames.length; i++) {
 
         // Actual test
         it(`Test valid --${enumArgumentNames[i]} passes, invalid throws exception`, () => {
             // tricky way to test definition callbacks:
-            // emulating commandLineArgs implementation to get access to definition internals
+            // emulating commandLineArgs implementation to get access to "definition" internals
             let commandLineArgsMock = sinon.stub().callsFake((definitions) => {
                 definitions.map((definition: commandLineArgs.OptionDefinition) => {
                     if (definition.name === enumArgumentNames[i]) {
@@ -72,19 +60,7 @@ describe('Test ArgsReader', () => {
                             let validValue = enumArguments[enumArgumentNames[i]][j];
                             chai.assert.equal(definition.type(validValue), validValue);
                         }
-                        try {
-                            // should throw exception
-                            definition.type('whatever');
-                        } catch (e) {
-                            chai.assert.equal(e.message, `Bad parameter value: --${enumArgumentNames[i]}=whatever`);
-                            return;
-                        }
-                        // failure if there was no exception
-                        chai.assert.fail(
-                            null,
-                            null,
-                            'Invalid value is passed, but no exception is thrown: --input-format'
-                        );
+                        chai.expect(definition.type.bind(definition, 'whatever')).throw(`Bad parameter value: --${enumArgumentNames[i]}=whatever`);
                     }
                 });
                 // return parsed arguments so ArgReader doesn't complain about mandatory parameter

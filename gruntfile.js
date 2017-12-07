@@ -3,9 +3,9 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         ts: {
-            app: {
+            default: {
                 files: [{
-                    src: ["src/\*\*/\*.ts"],
+                    src: ["./src/**/*.ts"],
                     dest: "./target"
                 }],
                 options: {

@@ -17,15 +17,15 @@ export default class ArgsReader {
      * @throws {Error}
      */
     read(): Args {
-        this.logger.info('reading command line parameters...');
+        // TODO consider extracting definition to App
         let definition: Array<AdvancedOptionDefinition> = [
             {
-                name: "input-file",
+                name: 'input-file',
                 type: String,
                 mandatory: true
             },
             {
-                name: "input-format",
+                name: 'input-format',
                 type: (value: InputFormat) => {
                     if (~['pipe', 'comma', 'space'].indexOf(value)) {
                         return value;
@@ -36,7 +36,7 @@ export default class ArgsReader {
                 mandatory: true
             },
             {
-                name: "output-sort",
+                name: 'output-sort',
                 type: (value: OutputSort) => {
                     if (~['gender', 'birthday', 'name'].indexOf(value)) {
                         return value;
