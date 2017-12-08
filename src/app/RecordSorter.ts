@@ -1,4 +1,4 @@
-import {OutputSort} from "../util/Types";
+import {OutputSort} from "../util/Definitions";
 import Record from "../app/Record";
 import Logger from "../util/Logger";
 

@@ -3,7 +3,7 @@ import * as sinon from 'sinon';
 import ArgsReader from '../../src/cli/ArgsReader';
 import loggerMock from '../mock/logger';
 import commandLineArgs = require("command-line-args");
-import {KeyStringValueString} from "../../src/util/Types";
+import {KeyStringValueString} from "../../src/util/Definitions";
 
 describe('Test ArgsReader', () => {
 
@@ -58,7 +58,7 @@ describe('Test ArgsReader', () => {
                         // assert valid values
                         for (let j = 0; j < enumArguments[enumArgumentNames[i]].length; j++) {
                             let validValue = enumArguments[enumArgumentNames[i]][j];
-                            chai.assert.equal(definition.type(validValue), validValue);
+                            chai.expect(definition.type(validValue)).equals(validValue);
                         }
                         chai.expect(definition.type.bind(definition, 'whatever')).throw(`Bad parameter value: --${enumArgumentNames[i]}=whatever`);
                     }

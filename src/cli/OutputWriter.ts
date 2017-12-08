@@ -7,6 +7,6 @@ export default class OutputWriter {
     ) {}
 
     write(records: Record[]) {
-
+        console.log(JSON.stringify(records));
     }
 }

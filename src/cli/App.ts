@@ -4,7 +4,7 @@ import InputReader from "./InputReader";
 import RecordSorter from "../app/RecordSorter";
 import OutputWriter from "./OutputWriter";
 import Record from "../app/Record";
-import {OutputSort} from "../util/Types";
+import {OutputSort} from "../util/Definitions";
 
 export default class App {
 

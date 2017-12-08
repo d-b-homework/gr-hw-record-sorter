@@ -1,5 +1,5 @@
 import * as express from "express";
-import {Response} from "../util/Types";
+import {Response} from "../util/Definitions";
 
 export default class RouterRecords {
 

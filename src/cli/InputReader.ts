@@ -1,6 +1,6 @@
 import Record from "../app/Record";
 import Logger from "../util/Logger";
-import {FsInterface} from "../util/Types";
+import {fileFormats, FsInterface, Gender, InputFormat} from "../util/Definitions";
 
 export default class InputReader {
 
@@ -10,24 +10,44 @@ export default class InputReader {
     ) {}
 
     read(filename: string, format: string): Promise<Record[]> {
-        if (!~['pipe', 'comma', 'space'].indexOf(format)) {
+        if (!~Object.keys(fileFormats).indexOf(format)) {
             return Promise.reject(new Error(`Bad file format: ${format}`));
         }
         return this.fs.exists(filename)
             .then((exists: boolean) => {
                 if (exists) {
+                    // for big files its better to use streams read
+                    // we assume files are small enough
                     return this.fs.readFile(filename);
                 } else {
                     throw new Error(`File does't exist: ${filename}`);
                 }
             })
             .then((content: Buffer): Record[] => {
-                this.logger.info(content);
-                return [
-                    new Record('LastNameOne', 'FirstNameOne', 'male', 'red', new Date('10/13/1919')),
-                    new Record('LastNameTwo', 'FirstNameTwo', 'female', 'green', new Date('10/13/1920')),
-                    new Record('LastNameThree', 'FirstNameThree', 'male', 'blue', new Date('10/13/1921'))
-                ];
+                let lines: string[] = content.toString()
+                    .split(/\n/g)
+                    .map((line: string) => line.trim());
+                let result: Record[] = [];
+                let lineNumber = 1;
+                lines.forEach((line: string) => {
+                    if (!line) {
+                        // skip empty lines
+                        return;
+                    }
+                    let columns: string[] = line
+                        .split(new RegExp(fileFormats[<InputFormat>format].regex, 'g'))
+                        .map((col: string) => col.trim());
+                    if (columns.length != 5) {
+                        throw new Error(`Line #${lineNumber} has ${columns.length} columns instead of expected 5`);
+                    }
+                    try {
+                        result.push(new Record(columns[0], columns[1], <Gender>columns[2], columns[3], columns[4]));
+                    } catch (err) {
+                        throw new Error(`Line #2 has an error: ${err.message}`);
+                    }
+                    lineNumber++;
+                });
+                return result;
             });
     }
 }

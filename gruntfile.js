@@ -5,8 +5,8 @@ module.exports = function(grunt) {
         ts: {
             default: {
                 files: [{
-                    src: ["./src/**/*.ts"],
-                    dest: "./target"
+                    src: ["src/**/*.ts", "!node_modules/**"],
+                    dest: "target"
                 }],
                 options: {
                     module: "commonjs",
@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         },
         watch: {
             ts: {
-                files: ["src/\*\*/\*.ts"],
+                files: ["src/**/*.ts"],
                 tasks: ["ts"]
             }
         }

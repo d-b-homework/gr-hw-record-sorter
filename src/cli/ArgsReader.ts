@@ -1,5 +1,5 @@
 import * as commandLineArgs from "command-line-args";
-import {InputFormat, OutputSort} from "../util/Types";
+import {InputFormat, OutputSort} from "../util/Definitions";
 import Logger from "../util/Logger";
 
 /**
