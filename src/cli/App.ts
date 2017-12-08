@@ -4,7 +4,7 @@ import InputReader from "./InputReader";
 import RecordSorter from "../app/RecordSorter";
 import OutputWriter from "./OutputWriter";
 import Record from "../app/Record";
-import {OutputSort} from "../util/Definitions";
+import {InputFormat, OutputSort} from "../util/Definitions";
 
 export default class App {
 
@@ -23,13 +23,13 @@ export default class App {
                 args = parsedArgs;
             })
             .then(() => {
-                return this.inputReader.read(args['input-file'], args['input-format']);
+                return this.inputReader.read(args['input-file'], <InputFormat>args['input-format']);
             })
             .then((records: Record[]) => {
                 return this.recordSorter.sort(records, <OutputSort>args['output-sort']);
             })
             .then((records: Record[]) => {
-                return this.outputWriter.write(records);
+                return this.outputWriter.write(records, <InputFormat>args['input-format']);
             })
             .catch((e: Error) => {
                 this.logger.error(e.message);

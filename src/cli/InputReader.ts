@@ -9,7 +9,7 @@ export default class InputReader {
         private fs: FsInterface
     ) {}
 
-    read(filename: string, format: string): Promise<Record[]> {
+    read(filename: string, format: InputFormat): Promise<Record[]> {
         if (!~Object.keys(fileFormats).indexOf(format)) {
             return Promise.reject(new Error(`Bad file format: ${format}`));
         }

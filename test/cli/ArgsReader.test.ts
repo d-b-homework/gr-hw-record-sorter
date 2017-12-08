@@ -40,7 +40,9 @@ describe('Test ArgsReader', () => {
             }
             let commandLineArgsMock = sinon.stub().returns(parsedArguments);
             let argsReader = new ArgsReader(loggerMock, commandLineArgsMock);
-            chai.expect(argsReader.read.bind(argsReader)).throw(`Parameter is mandatory: --${allArguments[i]}`);
+            chai
+                .expect(argsReader.read.bind(argsReader))
+                .throw(`Parameter is mandatory: --${allArguments[i]}`);
         });
     }
 
@@ -58,9 +60,13 @@ describe('Test ArgsReader', () => {
                         // assert valid values
                         for (let j = 0; j < enumArguments[enumArgumentNames[i]].length; j++) {
                             let validValue = enumArguments[enumArgumentNames[i]][j];
-                            chai.expect(definition.type(validValue)).equals(validValue);
+                            chai
+                                .expect(definition.type(validValue))
+                                .equals(validValue);
                         }
-                        chai.expect(definition.type.bind(definition, 'whatever')).throw(`Bad parameter value: --${enumArgumentNames[i]}=whatever`);
+                        chai
+                            .expect(definition.type.bind(definition, 'whatever'))
+                            .throw(`Bad parameter value: --${enumArgumentNames[i]}=whatever`);
                     }
                 });
                 // return parsed arguments so ArgReader doesn't complain about mandatory parameter

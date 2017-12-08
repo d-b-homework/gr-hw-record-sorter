@@ -16,7 +16,7 @@ let logger = new Logger();
 let argsReader = new ArgsReader(logger, commandLineArgs);
 let inputReader = new InputReader(logger, fs);
 let recordSorter = new RecordSorter(logger);
-let outputWriter = new OutputWriter(logger);
+let outputWriter = new OutputWriter(logger, console.log);
 let app = new App(
     logger,
     argsReader,

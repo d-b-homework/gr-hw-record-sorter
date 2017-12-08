@@ -13,7 +13,7 @@ describe('Test InputReader', () => {
         let fsMock: FsInterface = <FsInterface>{};
         let inputReader = new InputReader(loggerMock, fsMock);
         return chai
-            .expect(inputReader.read('dummy-file', 'dummy-format'))
+            .expect(inputReader.read('dummy-file', <InputFormat><any>'dummy-format'))
             .rejectedWith('Bad file format: dummy-format');
     });
 

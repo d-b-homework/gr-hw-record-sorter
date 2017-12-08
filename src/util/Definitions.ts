@@ -1,11 +1,11 @@
 export type InputFormat = 'pipe'|'comma'|'space';
 
 export type OutputSort = 'gender'|'birthday'|'name';
+export let outputSorts = ['gender', 'birthday', 'name'];
 
 export type KeyStringValueString = {[key: string]: string};
 
 export type Gender = 'female'|'male';
-
 export let genders = ['female', 'male'];
 
 export interface Response {
@@ -23,7 +23,7 @@ export interface FileFormat {
     regex: string;
 }
 
-let fileFormats:{[key in InputFormat]: FileFormat} = [
+export let fileFormats:{[key in InputFormat]: FileFormat} = [
     {
         name: 'pipe',
         separator: '|',
@@ -46,5 +46,3 @@ let fileFormats:{[key in InputFormat]: FileFormat} = [
     },
     <{[key in InputFormat]: FileFormat}>{}
 );
-
-export {fileFormats};
