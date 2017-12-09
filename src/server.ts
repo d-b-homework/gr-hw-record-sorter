@@ -44,22 +44,3 @@ let app = new App(
 
 // Start the application
 app.start(8080);
-
-
-// import * as express from "express";
-// import {createServer} from "http";
-// import {json as bodyParserJson} from "body-parser";
-// import App from "./server/App";
-// import RouterHelp from "./RouterHelp";
-// import RouterRecords from "./RouterRecords";
-
-// Simple DI container emulation
-// let routerHelp = new RouterHelp();
-// let app = new App(
-//     express,
-//     createServer,
-//     bodyParserJson
-// );
-
-// Start the application
-// app.start(8080);
