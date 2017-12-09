@@ -8,10 +8,6 @@ export type KeyStringValueString = {[key: string]: string};
 export type Gender = 'female'|'male';
 export let genders = ['female', 'male'];
 
-export interface Response {
-    json: Function;
-}
-
 export interface FsInterface {
     exists: Function;
     readFile: Function;
