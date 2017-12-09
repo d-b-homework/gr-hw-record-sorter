@@ -1,10 +1,10 @@
 import ArgsReader, {Args} from "./ArgsReader";
 import Logger from "../util/Logger";
 import InputReader from "./InputReader";
-import RecordSorter from "../app/RecordSorter";
 import OutputWriter from "./OutputWriter";
 import Record from "../app/Record";
-import {InputFormat, OutputSort} from "../util/Definitions";
+import {InputFormat} from "../util/Definitions";
+import RecordService from "../app/RecordService";
 
 /**
  * CLI application
@@ -15,7 +15,7 @@ export default class App {
         private logger: Logger,
         private argsReader: ArgsReader,
         private inputReader: InputReader,
-        private recordSorter: RecordSorter,
+        private recordService: RecordService,
         private outputWriter: OutputWriter
     ) {}
 
@@ -36,12 +36,28 @@ export default class App {
                 return this.inputReader.read(args['input-file'], <InputFormat>args['input-format']);
             })
 
-            // 3. Sort read data
+            // 3. Save to Record service
             .then((records: Record[]) => {
-                return this.recordSorter.sort(records, <OutputSort>args['output-sort']);
+                records.forEach((record: Record) => {
+                    this.recordService.add(record);
+                });
             })
 
-            // 4. Write output
+            // 4. Get sorted data
+            .then(() => {
+                switch (args['output-sort']) {
+                    case 'gender':
+                        return this.recordService.getAllSortByGender();
+                    case 'birthday':
+                        return this.recordService.getAllSortByBirthday();
+                    case 'name':
+                        return this.recordService.getAllSortByName();
+                    default:
+                        throw new Error(`Unexpected output sort ${args['output-sort']}`);
+                }
+            })
+
+            // 5. Write output
             .then((records: Record[]) => {
                 return this.outputWriter.write(records, <InputFormat>args['input-format']);
             })
