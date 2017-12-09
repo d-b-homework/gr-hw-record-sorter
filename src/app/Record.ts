@@ -1,5 +1,8 @@
 import {Gender, genders} from "../util/Definitions";
 
+/**
+ * Single record domain entity
+ */
 export default class Record {
     constructor(
         private _firstName: string,

@@ -3,6 +3,9 @@ import ResponseGenerator from "../ResponseGenerator";
 import RecordService from "../../app/RecordService";
 import Record from "../../app/Record";
 
+/**
+ * Get records by birthday endpoint handler
+ */
 export default class GetByBirthday {
 
     constructor(

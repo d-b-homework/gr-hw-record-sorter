@@ -2,6 +2,9 @@ import Record from "../app/Record";
 import Logger from "../util/Logger";
 import {fileFormats, InputFormat} from "../util/Definitions";
 
+/**
+ * Write output using provided function
+ */
 export default class OutputWriter {
     constructor(
         private logger: Logger,

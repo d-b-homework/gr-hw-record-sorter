@@ -1,8 +1,7 @@
 /**
- * cli starter
+ * CLI starter
  */
 import * as commandLineArgs from "command-line-args";
-
 import Logger from "./util/Logger";
 import ArgsReader from "./cli/ArgsReader";
 import {fs} from "mz";
@@ -11,7 +10,7 @@ import RecordSorter from "./app/RecordSorter";
 import OutputWriter from "./cli/OutputWriter";
 import App from "./cli/App";
 
-// simple DI container emulation
+// Simple DI container emulation
 let logger = new Logger();
 let argsReader = new ArgsReader(logger, commandLineArgs);
 let inputReader = new InputReader(logger, fs);
@@ -25,5 +24,5 @@ let app = new App(
     outputWriter
 );
 
-// run the application
+// Run the application
 app.run();

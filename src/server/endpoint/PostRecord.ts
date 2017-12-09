@@ -4,6 +4,9 @@ import ResponseGenerator from "../ResponseGenerator";
 import RecordService from "../../app/RecordService";
 import Record from "../../app/Record";
 
+/**
+ * Post record endpoint handler
+ */
 export default class PostRecord {
 
     constructor(
@@ -17,6 +20,7 @@ export default class PostRecord {
         try {
             record = this.requestParser.parseRecord(req.body);
         } catch (err) {
+            // bad request response code
             res.statusCode = 400;
             res.json(
                 this.responseGenerator.error(err.message)

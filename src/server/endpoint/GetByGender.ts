@@ -2,6 +2,9 @@ import {Request, Response} from "express";
 import ResponseGenerator from "../ResponseGenerator";
 import RecordService from "../../app/RecordService";
 
+/**
+ * Get records by gender endpoint handler
+ */
 export default class GetByGender {
 
     constructor(

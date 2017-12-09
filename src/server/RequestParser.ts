@@ -1,8 +1,15 @@
 import Record from "../app/Record";
 import {Gender} from "../util/Definitions";
 
+/**
+ * Parse request body
+ */
 export default class RequestParser {
 
+    /**
+     * Translate input to Record object
+     * Throw exception in case of any failure
+     */
     parseRecord(input: any): Record {
         let errorMessage = `Valid object is expected`;
 

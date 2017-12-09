@@ -1,8 +1,9 @@
 # Setting up #
 Server should have nodejs/npm installed (tested with `nodejs v4.2.6` and `npm v3.5.2`).
 ```
-git checkout <repo> <repo-root>
+mkdir <repo-root>
 cd <repo-root>
+git clone https://github.com/d-b-homework/guaranteed-rate-hw.git .
 npm i
 ```
 
@@ -42,7 +43,7 @@ npm run cli -- \
     --output-sort=gender
 ```
 
-# Running server #
+# Running server and using #
 To start the server, transpile the project (see above), and then use the following command:
 ```
 # Start server using transpiled code
@@ -79,7 +80,16 @@ e.g.
     "birthday": "10/13/1920"
 ```
 
-To GET sorted records, use
+To GET records sorted by gender, use
 - GET `http://hostname:8080/records/gender`
+- header `Content-Type: application/json`
+
+To GET records sorted by birthday, use
 - GET `http://hostname:8080/records/birthday`
+- header `Content-Type: application/json`
+
+To GET records sorted by name, use
 - GET `http://hostname:8080/records/name`
+- header `Content-Type: application/json`
+
+To reset data, restart the server.

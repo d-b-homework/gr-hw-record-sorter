@@ -1,6 +1,9 @@
 import Record from "./Record";
 import RecordSorter from "./RecordSorter";
 
+/**
+ * Records domain service
+ */
 export default class RecordService {
 
     private records: Record[] = [];

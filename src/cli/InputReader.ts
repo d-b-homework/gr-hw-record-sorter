@@ -2,6 +2,9 @@ import Record from "../app/Record";
 import Logger from "../util/Logger";
 import {fileFormats, FsInterface, Gender, InputFormat} from "../util/Definitions";
 
+/**
+ * Read data from input file
+ */
 export default class InputReader {
 
     constructor(
@@ -13,7 +16,11 @@ export default class InputReader {
         if (!~Object.keys(fileFormats).indexOf(format)) {
             return Promise.reject(new Error(`Bad file format: ${format}`));
         }
+
+        // 1. Ensure file exists
         return this.fs.exists(filename)
+
+            // 2. Read file content
             .then((exists: boolean) => {
                 if (exists) {
                     // for big files its better to use streams read
@@ -23,6 +30,8 @@ export default class InputReader {
                     throw new Error(`File does't exist: ${filename}`);
                 }
             })
+
+            // 3. Parse file content
             .then((content: Buffer): Record[] => {
                 let lines: string[] = content.toString()
                     .split(/\n/g)

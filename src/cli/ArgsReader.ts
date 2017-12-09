@@ -3,7 +3,7 @@ import {InputFormat, OutputSort} from "../util/Definitions";
 import Logger from "../util/Logger";
 
 /**
- * Parse and ensure validity of command line arguments
+ * Parse and ensure validity of CLI arguments
  */
 export default class ArgsReader {
 
@@ -12,12 +12,7 @@ export default class ArgsReader {
         private cliArgs: Function
     ) {}
 
-    /**
-     * @returns {Args}
-     * @throws {Error}
-     */
     read(): Args {
-        // TODO consider extracting definition to App
         let definition: Array<AdvancedOptionDefinition> = [
             {
                 name: 'input-file',
@@ -61,12 +56,15 @@ export default class ArgsReader {
     }
 }
 
-type ArgNames = 'input-file'|'input-format'|'output-sort';
-
+/**
+ * Interface to enrich command-line-args library with "mandatory" configuration option
+ */
 interface AdvancedOptionDefinition extends commandLineArgs.OptionDefinition {
     name: ArgNames,
     mandatory?: boolean;
 }
+
+type ArgNames = 'input-file'|'input-format'|'output-sort';
 
 export type Args = {
     [key in ArgNames]: string;

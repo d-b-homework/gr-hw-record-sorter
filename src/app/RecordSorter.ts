@@ -2,6 +2,9 @@ import {OutputSort, outputSorts} from "../util/Definitions";
 import Record from "../app/Record";
 import Logger from "../util/Logger";
 
+/**
+ * Service to sort records
+ */
 export default class RecordSorter {
     constructor(
         private logger: Logger
@@ -11,14 +14,17 @@ export default class RecordSorter {
         if (!~outputSorts.indexOf(sort)) {
             throw new Error(`Invalid sort type: ${sort}`);
         }
+
         return records.sort((r1: Record, r2: Record) => {
             switch (sort) {
+
                 case 'gender':
                     if (r1.gender === r2.gender) {
                         return r1.lastName < r2.lastName ? -1 : r1.lastName > r2.lastName ? 1 : 0;
                     } else {
                         return r1.gender === 'female' ? -1 : 1;
                     }
+
                 case 'birthday':
                     let bd1 = new Date(r1.birthday);
                     let bd2 = new Date(r2.birthday);
@@ -29,6 +35,7 @@ export default class RecordSorter {
                     } else {
                         return 0;
                     }
+
                 case 'name':
                     if (r1.lastName < r2.lastName) {
                         return 1;
