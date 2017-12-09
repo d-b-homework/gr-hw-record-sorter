@@ -29,10 +29,10 @@ export default class App {
 
     private getRouter(): express.Router {
         let router = express.Router();
-        router.post('/records', this.postRecord.handler);
-        router.get('/records/gender', this.getByGender.handler);
-        router.get('/records/birthday', this.getByBirthday.handler);
-        router.get('/records/name', this.getByName.handler);
+        router.post('/records', this.postRecord.handler.bind(this.postRecord));
+        router.get('/records/gender', this.getByGender.handler.bind(this.postRecord));
+        router.get('/records/birthday', this.getByBirthday.handler.bind(this.postRecord));
+        router.get('/records/name', this.getByName.handler.bind(this.postRecord));
         return router;
     }
 

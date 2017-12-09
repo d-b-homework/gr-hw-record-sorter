@@ -26,7 +26,7 @@ export let fileFormats:{[key in InputFormat]: FileFormat} = [
         regex: '\\|'
     },
     {
-        name: 'coma',
+        name: 'comma',
         separator: ',',
         regex: ','
     },

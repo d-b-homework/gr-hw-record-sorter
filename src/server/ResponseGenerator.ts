@@ -7,10 +7,26 @@ export default class ResponseGenerator {
     }
 
     singleRecord(record: Record): any {
-        return {"single": "record"};
+        return {
+            firstName: record.firstName,
+            lastName: record.lastName,
+            gender: record.gender,
+            favoriteColor: record.favoriteColor,
+            birthday: record.birthday
+        };
     }
 
-    multipleRecords(record: Record[]): any {
-        return {"multiple": "records"};
+    multipleRecords(records: Record[]): any {
+        let res: any[] = [];
+        records.forEach((record: Record) => {
+            res.push({
+                firstName: record.firstName,
+                lastName: record.lastName,
+                gender: record.gender,
+                favoriteColor: record.favoriteColor,
+                birthday: record.birthday
+            });
+        });
+        return res;
     }
 }
