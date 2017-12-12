@@ -3,7 +3,7 @@ Server should have nodejs/npm installed (tested with `nodejs v4.2.6` and `npm v3
 ```
 mkdir <repo-root>
 cd <repo-root>
-git clone https://github.com/d-b-homework/guaranteed-rate-hw.git .
+git clone https://github.com/d-b-homework/gr-hw-record-sorter.git .
 npm i
 ```
 

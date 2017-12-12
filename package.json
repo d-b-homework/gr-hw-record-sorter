@@ -1,6 +1,6 @@
 {
-  "name": "guaranteed-rate-hw",
-  "description": "GuaranteedRate Home Work",
+  "name": "gr-hw-record-sorter",
+  "description": "GR Record Sorter Home Work",
   "version": "1.0.0",
   "private": true,
   "author": "Dmytro Bazavluk",
